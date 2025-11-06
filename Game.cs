@@ -1,33 +1,41 @@
-﻿// Include the namespaces (code libraries) you need below.
 using System;
-using System.Numerics;
+using System.Threading;
 
-// The namespace your code is in.
 namespace MohawkGame2D
 {
-    /// <summary>
-    ///     Your game code goes inside this class!
-    /// </summary>
     public class Game
-    {
-        // Place your variables here:
+
+    {   // Player variables
+        Vector2[] cloudpositions = [new Vector2(20, 50), new Vector2(100, 200), new Vector2(250, 300)];
+        Vector2[] platformpositons = [new Vector2(500, 300), new Vector2(450, 600), new Vector2(650, 750), new Vector2(200, 550)];
 
 
-        /// <summary>
-        ///     Setup runs once before the game loop begins.
-        /// </summary>
-        public void Setup()
+        public void setup()
+
+            {
+            Window.SetTitle("platformjumper");
+            Window.SetSize(800, 600);
+            Window.TargetFPS = 60;
+
+            // initialize all game objects 
+
+            for (int i = 0; i < Clouds.length; i * *)
+                {
+                Clouds[i] = new Clouds();
+                Clouds[i].setup(Cloudposition[i]);
+
+            }
+            for (int i = 0; 0; i < Platform.length; i * *) ;
         {
+                Platform[i] = new Platform();
+                Platform[i].position = platformposition[i];
+                Platform[i].size = Platformsize[i];
+                Platform[i].setup();
 
+                    }
+            player = new player();
+            player.setup();
+
+                }
         }
-
-        /// <summary>
-        ///     Update runs every frame.
-        /// </summary>
-        public void Update()
-        {
-
-        }
-    }
-
-}
+                }
