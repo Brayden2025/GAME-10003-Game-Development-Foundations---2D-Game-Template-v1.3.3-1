@@ -10,7 +10,7 @@ namespace MohawkGame2D
         /// <summary>
         /// setup runs once before the game loop begins 
         /// </summary>
-        /// 
+        
         Vector2[] platformsPosition = {
         new Vector2(), new Vector2(), new Vector2(),
             new Vector2(), new Vector2(), new Vector2(),
@@ -18,7 +18,7 @@ namespace MohawkGame2D
         };
 
         Vector2 playerPosition = new Vector2();
-        Vector2 playerPosition = new Vector2();
+        Vector2 PlayerPosition = new Vector2();
         Vector2 playerVelocity = new Vector2();
         int playerSpeed = 10;
 
@@ -46,15 +46,7 @@ namespace MohawkGame2D
             Text.Color = Color.Red;
             Text.Draw($"{Timeofday}", 300, 300);
 
-            DrawPlatforms();
-            PlayerMovement();
-            UpdateEnemyPosition();
-            DrawPlayer();
-            DrawEnemy();
-            UpdatePlayerPosition();
-            CheckCollision();
-            PreventPlayerFromGoingThroughPlatforms();
-
+            DrawPlatforms(); DrawPlayer();DrawEnemy();
             void DrawPlayer()
             {
                 // Draw player
@@ -100,31 +92,74 @@ namespace MohawkGame2D
                     void UpdateEnemyPosition()
                     {
                         Vector2 direction = Vector2.Normalize(playerPosition -  enemyPosition);
-                        enemyPosition += direction * enemyspeed;
+                        enemyPosition += direction * enemySpeed;
                     }
 
                     void CheckPlayerPosition()
                     {// Fixed to update player position
                         playerPosition += playerVelocity; 
                         // prevent player and enemy from falling off screen 
-                        playerPosition += playerVelocity; Fixed to update player position 
-                        playerPosition.X = Math.Clamp(playerPosition.x, 0, 775);
-                        playerPosition.y = Math.Clamp(playerposition.y, 0, 575);
+                        playerPosition += playerVelocity; 
+                        playerPosition.X = Math.Clamp(playerPosition.X, 0, 775);
+                        playerPosition.Y = Math.Clamp(PlayerPosition.Y, 0, 575);
 
                     }
                 }    
                     void CheckCollision()
                     {
                        float distance = Vector2.Distance(playerPosition, enemyposition);
-                       if (enemyPosition == playerPosition position)
+                       if (enemyPosition == playerPosition )
                        {
                         // end game code
-                        Console.WriteLine("game over you have failed")
+                        Console.WriteLine("game over you have failed");
                              
                        }
+                        
+                        
                     }
+                void PreventPlayerfromgoingthroughPlatform() 
+                { 
+                     foreach (var platform in platformsPosition) 
+                     { 
+                         if (PlayerPosition.X + 50 > platform.X && playerPosition.X < platform.X +100 &&
+                                PlayerPosition.Y +50 > platform.Y && playerPosition.Y < platform.Y + 10)
+                        {
+                            //collision detected dont let player walk through platforms
+                            //jumping up 
+                            if (playerVelocity.Y < 0) 
+                            {
+                                playerPosition.Y = platform.Y + 12;
+                                playerVelocity.X = 0;
+                            }
+                            //moving down 
+                            else if (playerVelocity.Y > 0) 
+                            {
+                               playerPosition.Y =platform.Y + 12;
+                                playerVelocity.X = 0;
+                            }
+                            //moving left 
+                            else if (playerVelocity.X > 0)
+                            {
+                                playerPosition.X = platform.X + 50;
+                                playerVelocity.Y = 0;
+                            }
+                            //moving right 
+                        }   else if (playerVelocity.X > 0) 
+                        {
+                            playerPosition.X = platform.X - 50;
+                            playerVelocity.X = 0;
+                        }
+                    }
+                    void gameCheckCollision()
+                    {
+                        float enemyposition = Vector2.Distance(playerPosition, enemyPosition);
+                        if (enemyPosition == playerPosition)
 
-            };
+                            // End game logic
+                            Console.WriteLine("Game Over! The enemy has caught you.");
+
+                    }
+                    ;
 
     };  }
 
