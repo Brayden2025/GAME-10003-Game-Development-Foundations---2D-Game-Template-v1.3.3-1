@@ -1,41 +1,102 @@
-using System;
-using System.Threading;
+﻿using System;
+using System.Numerics;
 
 namespace MohawkGame2D
 {
     public class Game
+    {
 
-    {   // Player variables
-        Vector2[] cloudpositions = [new Vector2(20, 50), new Vector2(100, 200), new Vector2(250, 300)];
-        Vector2[] platformpositons = [new Vector2(500, 300), new Vector2(450, 600), new Vector2(650, 750), new Vector2(200, 550)];
+        /// <summary>
+        /// setup runs once before the game loop begins 
+        /// </summary>
+        /// 
+        Vector2[] platformsPosition = {
+        new Vector2(), new Vector2(), new Vector2(),
+            new Vector2(), new Vector2(), new Vector2(),
+            new Vector2(), new Vector2(), new Vector2(),
+        };
 
+        Vector2 playerPosition = new Vector2();
+        Vector2 playerPosition = new Vector2();
+        Vector2 playerVelocity = new Vector2();
+        int playerSpeed = 10;
 
-        public void setup()
+        Vector2 enemyPosition = new Vector2();
+        Vector2 enemyvelocity = new Vector2(0, 0);
+        float Timeofday = 20;
 
+        public void Setup()
+        {
+            Window.SetTitle("Platform Jumper");
+            Window.SetSize(600, 800);
+            Window.TargetFPS = 60; }
+        public void Update()
+        {
+            Window.ClearBackground(Color.White);
+            // when timer hits 0 timer restarts 
+            Timeofday -= Time.DeltaTime;
+            if (Timeofday <= 0)
             {
-            Window.SetTitle("platformjumper");
-            Window.SetSize(800, 600);
-            Window.TargetFPS = 60;
-
-            // initialize all game objects 
-
-            for (int i = 0; i < Clouds.length; i * *)
-                {
-                Clouds[i] = new Clouds();
-                Clouds[i].setup(Cloudposition[i]);
+                Timeofday = 0;
 
             }
-            for (int i = 0; 0; i < Platform.length; i * *) ;
-        {
-                Platform[i] = new Platform();
-                Platform[i].position = platformposition[i];
-                Platform[i].size = Platformsize[i];
-                Platform[i].setup();
+            //draw.circle(4, 4, 4);
 
+            Text.Color = Color.Red;
+            Text.Draw($"{Timeofday}", 300, 300);
+
+            DrawPlatforms();
+            PlayerMovement();
+            UpdateEnemyPosition();
+            DrawPlayer();
+            DrawEnemy();
+            UpdatePlayerPosition();
+            CheckCollision();
+            PreventPlayerFromGoingThroughPlatforms();
+
+            void DrawPlayer()
+            {
+                // Draw player
+                Draw.FillColor = Color.Blue;
+                Draw.Rectangle(playerPosition.X, playerPosition.Y, 60, 60); 
+            }
+            void DrawEnemy()
+            {
+                // Draw enemy
+                Draw.FillColor = Color.Black;
+                Draw.Circle(enemyPosition.X, enemyPosition.Y, 15);
+            }
+            void DrawPlatforms()
+            {
+                Draw.FillColor = Color.Green;
+                foreach (var position in platformsPosition)
+                {
+                    Draw.Rectangle(position.X, position.Y, 100, 10);
+                }
+                void PlayerMovement()
+                {
+                    if (Input.IsKeyboardKeyDown(KeyboardInput.A))
+                    {
+                        playerVelocity.X = -playerSpeed; // Move player left
                     }
-            player = new player();
-            player.setup();
+                    else if (Input.IsKeyboardKeyDown(KeyboardInput.D))
+                    {
+                        playerVelocity.X = playerSpeed; // Move player right
+                    }
+                    else if (Input.IsKeyboardKeyDown(KeyboardInput.W))
+                    {
+                        playerVelocity.Y = -playerSpeed; // Move player up
+                    }
+                    else if (Input.IsKeyboardKeyDown(KeyboardInput.S))
+                    {
+                        playerVelocity.Y = playerSpeed; // Move player down
+                    }
+                    else
+                    {
+                        playerVelocity = Vector2.Zero; // Stop player movement if no key is pressed
+                    }
+                }
 
-                }
-        }
-                }
+        };
+    };
+};
