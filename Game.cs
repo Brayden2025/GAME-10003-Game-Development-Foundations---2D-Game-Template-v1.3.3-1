@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace MohawkGame2D
 {
@@ -58,7 +59,7 @@ namespace MohawkGame2D
             {
                 // Draw player
                 Draw.FillColor = Color.Blue;
-                Draw.Rectangle(playerPosition.X, playerPosition.Y, 60, 60); 
+                Draw.Rectangle(playerPosition.X, playerPosition.Y, 60, 60);
             }
             void DrawEnemy()
             {
@@ -94,9 +95,37 @@ namespace MohawkGame2D
                     else
                     {
                         playerVelocity = Vector2.Zero; // Stop player movement if no key is pressed
-                    }
-                }
 
-        };
-    };
+                    }
+                    void UpdateEnemyPosition()
+                    {
+                        Vector2 direction = Vector2.Normalize(playerPosition -  enemyPosition);
+                        enemyPosition += direction * enemyspeed;
+                    }
+
+                    void CheckPlayerPosition()
+                    {// Fixed to update player position
+                        playerPosition += playerVelocity; 
+                        // prevent player and enemy from falling off screen 
+                        playerPosition += playerVelocity; Fixed to update player position 
+                        playerPosition.X = Math.Clamp(playerPosition.x, 0, 775);
+                        playerPosition.y = Math.Clamp(playerposition.y, 0, 575);
+
+                    }
+                }    
+                    void CheckCollision()
+                    {
+                       float distance = Vector2.Distance(playerPosition, enemyposition);
+                       if (enemyPosition == playerPosition position)
+                       {
+                        // end game code
+                        Console.WriteLine("game over you have failed")
+                             
+                       }
+                    }
+
+            };
+
+    };  }
+
 };
