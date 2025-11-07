@@ -78,14 +78,11 @@ namespace MohawkGame2D
                     {
                         playerVelocity.X = playerSpeed; // Move player right
                     }
-                    else if (Input.IsKeyboardKeyDown(KeyboardInput.W))
+                    else if (Input.IsKeyboardKeyDown(KeyboardInput.Space))
                     {
-                        playerVelocity.Y = -playerSpeed; // Move player up
+                        playerVelocity.Y = -playerSpeed; // to jump 
                     }
-                    else if (Input.IsKeyboardKeyDown(KeyboardInput.S))
-                    {
-                        playerVelocity.Y = playerSpeed; // Move player down
-                    }
+                    
                     else
                     {
                         playerVelocity = Vector2.Zero; // Stop player movement if no key is pressed
